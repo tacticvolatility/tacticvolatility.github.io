@@ -16,7 +16,7 @@
     <meta name="author" content="">
     <link rel="icon" href="images/acm-cac-logo.png">
 
-    <title>M-Perm: An Android Permission Analysis Tool</title>
+    <title>Celia Tool</title>
 
     <!-- Bootstrap core CSS -->
     <link href="dist/css/bootstrap.min.css" rel="stylesheet">
@@ -60,9 +60,9 @@ function loadPageData(strPageName){
 
 
 
-    case "tooldownload":
+    case "installation":
     $(document).ready(function(){
-        $('#content').load("pages/tooldownload.html"); 
+        $('#content').load("pages/installation.html");
       });
       $(window).on('load', function(){
         $('#tooldownloadNavLink').addClass('dkActive');
@@ -82,9 +82,9 @@ function loadPageData(strPageName){
   break;
 
 
-case "documentation":
+case "usage":
     $(document).ready(function(){
-        $('#content').load("pages/documentation.html"); 
+        $('#content').load("pages/usage.html");
       });
       $(window).on('load', function(){
         $('#DocumentationNavLink').addClass('dkActive');
@@ -184,13 +184,13 @@ default:
           <a href="#" class="pull-left"><img src="images/google_android"></a>
           -->
 
-        <a class="navbar-brand" href="index.html" id="homeNavLink">M-Perm</a>
+        <a class="navbar-brand" href="index.html" id="homeNavLink">Celia</a>
         </div>
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
-          <li><a href="index.html?page=tooldownload" id="tooldownloadNavLink">Tool Download</a></li>
+          <li><a href="index.html?page=tooldownload" id="tooldownloadNavLink">Installation</a></li>
 
-          <li><a href="index.html?page=documentation" id="DocumentationNavLink">Documentation</a></li>
+          <li><a href="index.html?page=documentation" id="DocumentationNavLink">Usage</a></li>
           <!--
         <li><a href="index.html?page=androidpermissions" id="AndroidPermissionsNavLink">Android Permissions</a></li>
         -->
