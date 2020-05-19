@@ -90,8 +90,16 @@ case "installation":
         $('#DocumentationNavLink').addClass('dkActive');
       })
   break;
-
   
+case "screencast":
+    $(document).ready(function(){
+        $('#content').load("pages/screencast.html");
+      });
+      $(window).on('load', function(){
+         $('#DocumentationNavLink').addClass('dkActive');
+      })
+  break;
+
   
 default:
   $(document).ready(function(){
@@ -184,7 +192,7 @@ default:
           <a href="#" class="pull-left"><img src="images/google_android"></a>
           -->
 
-        <a class="navbar-brand" href="index.html" id="homeNavLink">M-Perm</a>
+        <a class="navbar-brand" href="index.html" id="homeNavLink">CELIA</a>
         </div>
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
@@ -195,6 +203,8 @@ default:
         <li><a href="index.html?page=androidpermissions" id="AndroidPermissionsNavLink">Android Permissions</a></li>
         -->
           <li><a href="index.html?page=aboutproject" id="aboutProjectNavLink">About</a></li>
+          
+          <li><a href="index.html?page=screencast" id="aboutProjectNavLink">Screencast</a></li>
 
           <!--
           <li><a href="XXXXX">XXXXX</a></li>
