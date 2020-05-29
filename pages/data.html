@@ -30,6 +30,7 @@
 <h1>Data</h1>
 
 <br />
+
 <p>
 <b>CELIA</b> is a utility measuring tool. It simulates a drone requesting updates from it's base station. It predicts the utility of performing the update in terms of cost and latency. If the utility is higher than a certain threshold, set according to a service level agreement, the drone updates itself. When the system updates, it is given a reward (difference between the actual utility and the threshold). This way, the system is penalized if the actual utility is less than the threshold. If the system doesn't perform an update when it was supposed to according to the actual utility, it is assigned lost utility (which equal to the real utility of updating).
 </p>
@@ -40,42 +41,44 @@
 <ul>
 
 <li><b>predictedUtility:</b> The predicted utility of performing an update.</li>
+<br />
 
 <li><b>realUtility:</b> The real utility of performing an update.</li>
-
+<br />
 <li><b>Reward:</b> The reward for performing a correct update <pre>real utility - threshold</pre></li>
-
+<br />
 <li><b>negativeAward:</b> the penalty for making a wrong decision <pre>for performing an update = realUtility-updateThreshold;<br /> for not performing an update = realUtility)</pre></li>
-
+<br />
 <li><b>lostUtility:</b> The utility lost by not updating.</li>
-
-s<li><b>houldHaveUpdated:</b> Boolean value. 1 if the decision is correct. 0 is the decision was wrong</li>
-
+<br />
+<li><b>shouldHaveUpdated:</b> Boolean value. 1 if the decision is correct. 0 is the decision was wrong</li>
+<br />
 <li><b>performedUpdate:</b> Boolean value. 1 if it performed an update. 0 if it did not.</li>
-
+<br />
 <li><b>CELIA Stats file:</b> This is a statistical analysis of all the simulations performed on the prediction files</li>
-
+<br />
 <li><b>utilDif:</b> the absolute sum of absolute difference between the predicted and actual utility. A larger number is bad.</li>
-
+<br />
 <li><b>reward:</b> Cumulative reward award of the simulation run.</li>
-
+<br />
 <li><b>negativeReward:</b> The penalty accumulated by making an incorrect decision. When an update is made when it shouldn't have been, it is equal to <pre>realUtility - updateThreshold</pre> When an update should have been made, it is equal to lost utility.</li>
-
+<br />
 <li><b>numberOfUpdates:</b> Total number of updates performed during a simulation run by celia. This number is a secondary metric</li>
-
+<br />
 <li><b>lostUtil: </b>The lost utility by not updating. The larger number is bad.</li>
-
+<br />
 <li><b>wrongDecisions:</b> total number of wrong decisions <pre>decisionShouldHaveDidNot + decisionNotHaveDid</pre>. A larger number is bad.</li>
-
+<br />
 <li><b>correctDecisions:</b> total number of correct decisions <pre> decisionShouldHaveDid + decisionNotHaveDidNot <pre>. A larger number is good.</li>
-
+<br />
 <li><b>decisionShouldHaveDid:</b> Number of correct update decisions the system made. </li>
-
+<br />
 <li><b>decisionShouldHaveDidNot:</b> Number of incorrect not-update decisions the system made. </li>
-
+<br />
 <li><b>decisionNotHaveDid:</b> Number of incorrect update decisions the system made. </li>
-
+<br />
 <li><b>decisionNotHaveDidNot:</b> Number of correct not-update decisions the system made. </li>
+<br />
 </p>
 
 
