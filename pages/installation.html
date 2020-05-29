@@ -6,203 +6,75 @@
 
 
 
-
 <div id="mainPage">
 
 
 <h1>Installation</h1>
 
 
-<h4>Virtual Machine</h4>
-<p>Users are recommended to use M-Perm with the provided Virtual Machine. To use this VM, you may use the instructions provided below, or visit <a href="index.html?page=tooldownload">this</a> page for more instructions how to use the provided Virtual Machine.</p>
+<h4>Using Docker Image</h4>
 
+<p>The contents of the Dockerfile are as follows:
 
-<p>
-Once you have <i>resumed the VM's suspension</i>, you will screen a screen similar to the one below.</p>
-
-
-<a class="fancybox" rel="group" href="images/VM-initial-screen.png"><img src="images/VM-initial-screen.png" alt="Initial VM screen" width="470" height="250" /></a>
-<figcaption>Fig1. - Initial VM screen after resuming suspension.</figcaption>
-  
-<br />
-
-<p>The next step is to begin the reverse engineering of the app (apk). Since the VM should already be loaded with the appropriate command to run this on a sample Adobe.apk file, you should merely need to press enter inside of the terminal. Depending on the size the apk, the reverse engineering process can take several minutes, so please be patient. A sample command which you could use to reverse engineer an apk is shown below.</p>
-
-<pre>python3 MPerm.py -d [--decompile] apk_path</pre>
-<br />
-
-
-<a class="fancybox" rel="group" href="images/VM-decompile.png"><img src="images/VM-decompile.png" alt="App Reverse Engineering" width="470" height="250" /></a>
-<figcaption>Fig2. - Reverse Engineering Process.</figcaption>
-  
-<br />
-
-<p>Once the reverse engineering process is completed, you should see a screen like the one below.</p>
-
-<a class="fancybox" rel="group" href="images/VM-Decompile-complete.png"><img src="images/VM-Decompile-complete.png" alt="App Reverse Engineering" width="470" height="260" /></a>
-<figcaption>Fig3. - Completed Reverse Engineering Process.</figcaption>
-  
-<br />
-
-
-<p>The next step is to begin the analysis process. This should only take 1-2 seconds to complete. The analysis portion may be run using the following syntax:
-
-<pre>python3 MPerm.py -a [--analyze]   decompiled_apk_path</pre>
-
-</p>
-
-<a class="fancybox" rel="group" href="images/VM-ReportCompleted.png"><img src="images/VM-ReportCompleted.png" alt="App Reverse Engineering" width="470" height="130" /></a>
-<figcaption>Fig4. - Analysis Process.</figcaption>
-  
-<br />
-
-
-<p>As noted in the <a href="#output">Output</a> section below, two report files will be created in the noted reports directory. When using the provided Facebook lite app, the two generated output files should look like these:
-
-<ol>
-<!--
-  <li><a href="pages/files/analysis_com.adobe.reader.txt" target="_blank">analysis_com.adobe.reader.txt</a></li>
-  <li><a href="pages/files/source_report_com.adobe.reader.txt" target="_blank">source_report_com.adobe.reader.txt</a></li>
-  -->
-
-
-  <li><a href="pages/files/source_report_com.facebook.lite.txt" target="_blank">source_report_com.facebook.lite</a></li>
-  <li><a href="pages/files/analysis_com.facebook.lite.txt" target="_blank">analysis_com.facebook.lite</a></li>
-</ol>
+<pre>FROM python:latest
+    
+    ADD . /celiatool
+    
+    WORKDIR /celiatool
+    
+    # Install native libraries, required for numpy
+    RUN pip --no-cache
+    
+    # Upgrade pip
+    RUN pip install --upgrade pip
+    
+    # packages that we need
+    RUN pip install numpy
+    RUN pip install pandas
+    RUN pip install jupyter
+    RUN pip install sklearn
+    
+    
+    CMD ["main.py"]
+    
+    ENTRYPOINT python3 main.py ./config.json
+</pre>
 
 </p>
 
 
-<h2>Download from Source</h2>
-
-<p>You may also install M-Perm using the publicly available source code using the <a href="https://github.com/dan7800/MPermission/blob/master/README.md" target="_blank">instructions</a> provided on the project's <a href="https://github.com/dan7800/MPermission/" target="_blank">GitHub</a> page. This may be more challenging than using the provided VM, due to possible dependency related issues.</p>
+<p>The image is availble as celiatool.tar file and can be accessed at: http://drive.google.com/file/d/17P7u0z5uQpVDAGns3xla5kBhBxYryfAS/view?usp=sharing</p>
 
 
 <br />
-<h4>Youtube Screen cast</h4>
-<p>This screen cast may be helpful in providing a basic understanding of M-Perm, and its usage.</p>
-   
-<!--
-  Embed a video
-  On a computer, go to the YouTube video you want to embed.
-  Under the video, click Share .
-  Click Embed.
-  From the box that appears, copy the HTML code.
-  Paste the code into your blog or website HTML.
--->
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/ACq3wMKfCe8" frameborder="0" allowfullscreen></iframe>
+<p>Once the image is dowloaded, to load the docker image you'll have use the command:</p>
 
-
-
-
-<a name="output"></a> 
-<h2>Output</h2>
-<p>
-M-Perm produces an <a href="pages/files/analysis_com.amazon.avod.thirdpartyclient.txt" target="_blank">output file</a> with the following primary components:
-</p>
-
-
-<h4>Package</h4>
-The package name used in the app.
-<pre>Package: com.amazon.avod.thirdpartyclient</pre>
-
-
-<br />
-<h4>Android Permissions</h4>
-The report shows both '<a href="https://developer.android.com/guide/topics/security/normal-permissions.html" target="_blank">Normal</a>' and '<a href="https://developer.android.com/guide/topics/security/permissions.html#normal-dangerous" target="_blank">Dangerous</a>' Android permissions which the app may request.
-<pre>----------- Permissions from Manifest ------------
-   0 android.permission.WAKE_LOCK
-   1 com.amazon.identity.permission.GENERIC_IPC
-   2 com.amazon.identity.permission.CAN_CALL_MAP_INFORMATION_PROVIDER
-   3 android.permission.INTERACT_ACROSS_USERS
-   4 android.permission.CHANGE_NETWORK_STATE
-   5 android.permission.READ_PHONE_STATE
-   6 com.amazon.dcp.sso.permission.MANAGE_COR_PFM
-   7 com.amazon.dcp.sso.permission.USE_DEVICE_CREDENTIALS
-   8 amazon.permission.COLLECT_METRICS
-   9 android.permission.INTERNET
-  10 android.permission.AUTHENTICATE_ACCOUNTS
-  11 android.permission.ACCESS_NETWORK_STATE
-  12 com.amazon.dcp.config.permission.DYN_CONFIG_VALUES_UPDATED
-  13 com.amazon.dcp.sso.permission.account.changed
-  14 android.permission.MANAGE_ACCOUNTS
-  15 android.permission.ACCESS_WIFI_STATE
-  16 com.amazon.CONTENT_PROVIDER_ACCESS
-  17 android.permission.WRITE_EXTERNAL_STORAGE
-  18 com.amazon.dcp.sso.permission.AmazonAccountPropertyService.property.changed
-  19 com.amazon.identity.auth.device.perm.AUTH_SDK
-  20 android.permission.USE_CREDENTIALS
-  21 com.amazon.avod.SDK_ACCESS
-  22 com.amazon.dcp.sso.permission.CUSTOMER_ATTRIBUTE_SERVICE
-  23 android.permission.READ_SYNC_SETTINGS
-  24 android.permission.WRITE_SYNC_SETTINGS
-  25 com.amazon.dcp.metrics.permission.METRICS_PERMISSION
-  26 android.permission.GET_ACCOUNTS
-  27 com.amazon.identity.permission.CALL_AMAZON_DEVICE_INFORMATION_PROVIDER</pre>
+<pre>docker load -input celiatool.tar</pre>
 
 <br />
 
+<p>To check if the image has been downloaded successfully you check it with a simple command:</p>
 
+<pre> docker images </pre>
 
+<p>Output should typically look like Figure 1</p>
 
+<a class="fancybox" rel="group" href="images/DockerImage.png"><img src="images/VM-Decompile-complete.png" alt="Docker Image" width="470" height="260" /></a>
+<figcaption>Fig1. - How to see Docker Image.</figcaption>
+  
+<br />
 
-<h4>Third Party Permissions</h4>
-Developers may also create their own <a href="https://source.android.com/security/overview/app-security.html#how-users-understand-third-party-applications" target="_blank">3rd party permissions</a>, which are also reported by M-Perm.
-<pre>------------ Third Party Permissions -------------
-   0 com.amazon.identity.permission.CALL_AMAZON_DEVICE_INFORMATION_PROVIDER
-   1 com.amazon.identity.permission.GENERIC_IPC
-   2 com.amazon.dcp.config.permission.DYN_CONFIG_VALUES_UPDATED
-   3 com.amazon.dcp.sso.permission.USE_DEVICE_CREDENTIALS
-   4 com.amazon.dcp.sso.permission.account.changed
-   5 com.amazon.identity.permission.CAN_CALL_MAP_INFORMATION_PROVIDER
-   6 com.amazon.CONTENT_PROVIDER_ACCESS
-   7 com.amazon.dcp.sso.permission.AmazonAccountPropertyService.property.changed
-   8 com.amazon.identity.auth.device.perm.AUTH_SDK
-   9 com.amazon.dcp.metrics.permission.METRICS_PERMISSION
-  10 com.amazon.avod.SDK_ACCESS
-  11 com.amazon.dcp.sso.permission.CUSTOMER_ATTRIBUTE_SERVICE
-  12 com.amazon.dcp.sso.permission.MANAGE_COR_PFM</pre>
+<p>When the image is successfully loaded to run the image a simple command is needed.</p>
 
+<pre> docker run celiatool1 </pre>
 
+<p>Output should typically look like Figure 2</p>
+
+<a class="fancybox" rel="group" href="images/DockerRunInstructions.png"><img src="images/VM-initial-screen.png" alt="Initial VM screen" width="470" height="250" /></a>
+<figcaption>Fig2. - Docker Image Running Instructions.</figcaption>
 
 <br />
-<h4>Requested Dangerous (and Groups)</h4>
-M-Perm also reports all requested '<a href="https://developer.android.com/guide/topics/security/permissions.html#normal-dangerous" target="_blank">Dangerous</a>' permissions, along with the groups which they belong to.
-<pre>-------- Requested Dangerous Permissions ---------
-storage: READ_EXTERNAL_STORAGE
-storage: WRITE_EXTERNAL_STORAGE
-phone: READ_PHONE_STATE
-phone: CALL_PHONE
-phone: READ_CALL_LOG
-phone: WRITE_CALL_LOG
-phone: ADD_VOICEMAIL
-phone: USE_SIP
-phone: PROCESS_OUTGOING_CALLS
-contacts: READ_CONTACTS
-contacts: WRITE_CONTACTS
-contacts: GET_ACCOUNTS</pre>
-
-
-
-<br />
-<h4>Under and overprivs</h4>
-Many apps contain both <a href="https://people.eecs.berkeley.edu/~dawnsong/papers/2011%20Android%20permissions%20demystified.pdf" target="_blank">over &amp; under priviledges</a>, which are reported by the tool.
-<pre>
---------- Unrequested Dangerous (Under) ----------
-if (context.checkCallingOrSelfPermission("android.permission.RECEIVE_SMS") == 0) {
-
-
------------ Requested Dangerous (Over) -----------
-['READ_EXTERNAL_STORAGE', 'WRITE_EXTERNAL_STORAGE']
-['READ_PHONE_STATE', 'CALL_PHONE', 'READ_CALL_LOG', 'WRITE_CALL_LOG', 'ADD_VOICEMAIL', 'USE_SIP', 'PROCESS_OUTGOING_CALLS']
-['READ_CONTACTS', 'WRITE_CONTACTS', 'GET_ACCOUNTS']</pre>
-
-
-<br />
-<h4>Complete Output</h4>
-<p>An exmaple complete result set from an Amazon app is shown below.</p>
-<iframe src="pages/files/analysis_com.amazon.avod.thirdpartyclient.txt" width="400" height="2000"></iframe>
 
 
 
