@@ -59,29 +59,6 @@ function loadPageData(strPageName){
   break;
 
 
-
-    case "usage":
-    $(document).ready(function(){
-        $('#content').load("pages/usage.html");
-      });
-      $(window).on('load', function(){
-        $('#tooldownloadNavLink').addClass('dkActive');
-      })
-  break;
-
-
-
-
-    case "androidpermissions":
-    $(document).ready(function(){
-        $('#content').load("pages/androidpermissions.html"); 
-      });
-      $(window).on('load', function(){
-        $('#AndroidPermissionsNavLink').addClass('dkActive');
-      })
-  break;
-
-
 case "installation":
     $(document).ready(function(){
         $('#content').load("pages/installation.html");
@@ -206,8 +183,8 @@ default:
           <ul class="nav navbar-nav">
           
           <li><a href="index.html?page=data" id="dataNavLink">Data</a></li>
-          <li><a href="index.html?page=installation" id="DocumentationNavLink">Installation</a></li>
-          <li><a href="index.html?page=usage" id="tooldownloadNavLink">Usage</a></li>
+          <li><a href="index.html?page=installation" id="DocumentationNavLink">Adoption Intructions</a></li>
+        
           <!--
         <li><a href="index.html?page=androidpermissions" id="AndroidPermissionsNavLink">Android Permissions</a></li>
         -->
